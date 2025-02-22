@@ -38,13 +38,14 @@ pub fn sign_message(pubkey: &str, message: &str) {
     println!("Signature: {:?}", signature);
 }
 
-pub fn verify_message(pubkey: &str, message: &str, signature: &str) {
+pub fn verify_message(pubkey: &str, message: &str, signature: &str) -> bool {
     let pubkey = Pubkey::from_str(pubkey).unwrap();
     let message_bytes = message.as_bytes();
     let signature =
         solana_sdk::signature::Signature::from_str(signature).expect("Invalid signature format");
     let verified = signature.verify(&pubkey.to_bytes(), message_bytes);
     println!("Signature verification result: {}", verified);
+    verified
 }
 
 pub fn handle_wallet_selection() {
